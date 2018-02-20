@@ -1,0 +1,7 @@
+<RCC>
+  <qresource prefix="images">
+    <file>../images/hawkeye_logo.png</file>
+    <file>../images/LoginButtonLogo.jpg</file>
+    <file>../images/LoginPageBackground.jpg</file>
+  </qresource>
+</RCC>
