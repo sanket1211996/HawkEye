@@ -32,8 +32,7 @@
    <bool>false</bool>
   </property>
   <property name="styleSheet">
-   <string notr="true">
-</string>
+   <string notr="true"/>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="label">
@@ -55,7 +54,7 @@
      <string/>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>110</x>
@@ -117,18 +116,7 @@
       </widget>
      </item>
      <item row="2" column="1">
-      <widget class="QComboBox" name="comboBox_UserType">
-       <item>
-        <property name="text">
-         <string>Admin Login</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Officer Login</string>
-        </property>
-       </item>
-      </widget>
+      <widget class="QComboBox" name="comboBox_UserType"/>
      </item>
      <item row="3" column="1">
       <widget class="QPushButton" name="pushButton_Login">
@@ -148,6 +136,11 @@
       </widget>
      </item>
     </layout>
+    <zorder>lineEdit_UserName</zorder>
+    <zorder>lineEdit_Password</zorder>
+    <zorder>labelUserType</zorder>
+    <zorder>comboBox_UserType</zorder>
+    <zorder>pushButton_Login</zorder>
     <zorder>labelUserName</zorder>
     <zorder>labelPassword</zorder>
    </widget>
