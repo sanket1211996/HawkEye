@@ -16,7 +16,19 @@ class Ui_MainWindow(object):
         MainWindow.setMinimumSize(QtCore.QSize(514, 352))
         MainWindow.setMaximumSize(QtCore.QSize(514, 352))
         MainWindow.setAutoFillBackground(False)
-        MainWindow.setStyleSheet("")
+        MainWindow.setStyleSheet("QWidget{\n"
+"background-image: url(:/images/images/LoginPageBackground.jpg);\n"
+"}\n"
+"\n"
+"QLabel{\n"
+"    color: rgb(255, 0, 0);\n"
+"    font: 75 10pt \"Arial\";\n"
+"}\n"
+"\n"
+"QLineEdit{\n"
+"    color: rgb(255, 255, 255);\n"
+"}\n"
+"")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.label = QtWidgets.QLabel(self.centralwidget)
@@ -35,7 +47,7 @@ class Ui_MainWindow(object):
         self.labelUserName.setObjectName("labelUserName")
         self.gridLayout.addWidget(self.labelUserName, 0, 0, 1, 1)
         self.lineEdit_UserName = QtWidgets.QLineEdit(self.layoutWidget)
-        self.lineEdit_UserName.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.lineEdit_UserName.setStyleSheet("")
         self.lineEdit_UserName.setObjectName("lineEdit_UserName")
         self.gridLayout.addWidget(self.lineEdit_UserName, 0, 1, 1, 1)
         self.labelPassword = QtWidgets.QLabel(self.layoutWidget)
@@ -88,13 +100,3 @@ class Ui_MainWindow(object):
         self.labelUserType.setText(_translate("MainWindow", "  User Type "))
 
 from resource.qrc import LoginPage_rc
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())
-

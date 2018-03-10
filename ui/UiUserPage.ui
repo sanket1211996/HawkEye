@@ -1,19 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
+ <class>UserWindow</class>
+ <widget class="QMainWindow" name="UserWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1372</width>
-    <height>681</height>
+    <width>1377</width>
+    <height>730</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>HawkEye</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true">QWidget#centralwidget{
+	background-image: url(:/icon/images/backgground.jpeg);
+}
+QTableWidget#tableWidget_Recording{
+	background-color: rgb(170, 170, 255);
+
+}</string>
+   </property>
    <widget class="QWidget" name="horizontalLayoutWidget">
     <property name="geometry">
      <rect>
@@ -32,8 +44,14 @@
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="styleSheet">
+        <string notr="true">background-image: url(:/icon/images/video-icon.jpg);</string>
+       </property>
        <property name="text">
-        <string>PushButton</string>
+        <string/>
+       </property>
+       <property name="flat">
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -46,7 +64,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>PushButton</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -93,6 +111,12 @@
        <property name="text">
         <string>PushButton</string>
        </property>
+       <property name="default">
+        <bool>false</bool>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
      <item>
@@ -102,6 +126,9 @@
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>PushButton</string>
@@ -115,9 +142,12 @@
      <rect>
       <x>0</x>
       <y>80</y>
-      <width>1251</width>
-      <height>531</height>
+      <width>1371</width>
+      <height>621</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
     </property>
     <property name="currentIndex">
      <number>0</number>
@@ -128,30 +158,13 @@
        <rect>
         <x>670</x>
         <y>0</y>
-        <width>511</width>
+        <width>411</width>
         <height>411</height>
        </rect>
       </property>
-      <row>
-       <property name="text">
-        <string>New Row</string>
-       </property>
-      </row>
-      <row>
-       <property name="text">
-        <string>New Row</string>
-       </property>
-      </row>
-      <row>
-       <property name="text">
-        <string>New Row</string>
-       </property>
-      </row>
-      <column>
-       <property name="text">
-        <string>New Column</string>
-       </property>
-      </column>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
       <column>
        <property name="text">
         <string>File Name</string>
@@ -183,8 +196,8 @@
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">border-color: rgb(0, 0, 0);
-RR</string>
+       <string notr="true">background-color: rgb(0, 0, 0);
+border-color: rgb(255, 0, 0);</string>
       </property>
       <property name="text">
        <string/>
@@ -194,8 +207,8 @@ RR</string>
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>490</y>
-        <width>561</width>
+        <y>540</y>
+        <width>725</width>
         <height>41</height>
        </rect>
       </property>
@@ -217,14 +230,49 @@ RR</string>
        <item>
         <widget class="QPushButton" name="pushButton_startRec">
          <property name="text">
-          <string>Start Recording</string>
+          <string>Start Rec</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QPushButton" name="pushButton_stopRec">
          <property name="text">
-          <string>Stop Recording</string>
+          <string>Stop Rec</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_next">
+         <property name="text">
+          <string>Next</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_pause">
+         <property name="text">
+          <string>Pause</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_play">
+         <property name="text">
+          <string>Play</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_vstop">
+         <property name="text">
+          <string>Stop</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_prev">
+         <property name="text">
+          <string>Prev</string>
          </property>
         </widget>
        </item>
@@ -256,25 +304,92 @@ RR</string>
        <enum>Qt::Vertical</enum>
       </property>
      </widget>
+     <widget class="QPushButton" name="pushButton_FileDialog">
+      <property name="geometry">
+       <rect>
+        <x>670</x>
+        <y>420</y>
+        <width>91</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>OutPut Folder</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>770</x>
+        <y>420</y>
+        <width>311</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(170, 170, 255);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QSlider" name="horizontalSlider_video">
+      <property name="geometry">
+       <rect>
+        <x>100</x>
+        <y>490</y>
+        <width>551</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_vtime">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>490</y>
+        <width>81</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(170, 170, 255);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <zorder>label_player</zorder>
+     <zorder>layoutWidget</zorder>
+     <zorder>line_2</zorder>
+     <zorder>line</zorder>
+     <zorder>pushButton_FileDialog</zorder>
+     <zorder>label</zorder>
+     <zorder>horizontalSlider_video</zorder>
+     <zorder>label_vtime</zorder>
+     <zorder>tableWidget_Recording</zorder>
     </widget>
     <widget class="QWidget" name="page_2"/>
    </widget>
-   <zorder>horizontalLayoutWidget</zorder>
-   <zorder>stackedWidget</zorder>
-   <zorder>pushButton_page6</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1372</width>
+     <width>1377</width>
      <height>21</height>
     </rect>
    </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources/>
+ <resources>
+  <include location="../resource/qrc/LoginPage.qrc"/>
+  <include location="../resource/qrc/UserPage.qrc"/>
+ </resources>
  <connections/>
 </ui>
