@@ -65,6 +65,9 @@ class LoginMain(QtWidgets.QMainWindow):
 
         self.db_Cursor.execute(userListQuery)
         results = self.db_Cursor.fetchall()
+        if not results:
+            msg =QtWidgets.QMessageBox()
+            msg.about(self, "Error","Invalid Credentials")
 
         for row in results:
             username_fetched=row[0]

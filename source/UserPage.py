@@ -1,4 +1,6 @@
 import  time
+from resource.darkflow.darkflow.net.build import TFNet
+import numpy as np
 import datetime
 import re
 import sys,os
@@ -20,7 +22,7 @@ class UserMain(QtWidgets.QMainWindow):
         self.Vheight=640
         self.Vwidth=480
         self.flag=-1       #Flag for 1 -recording  -1 for no recodring and 0 for stop recording
-
+        self.ui.webView.load(QtCore.QUrl("D:/Project/HawkEye/html/map.html"))
         self.fourcc=None
         self.outDir="D:\\Project\\HawkEye\\video"
         self.ui.label_player.setPixmap(QPixmap("D:\\Project\\HawkEye\\resource\\images\\playerbackground.png"))
@@ -29,6 +31,14 @@ class UserMain(QtWidgets.QMainWindow):
         self.ButtonConnectOnCreate()
         self.ButtonDConnectOnCreate()
 
+
+    def algo_init(self):
+        options = {"model": "D:/Project/HawkEye/resource/darkflow/cfg/tiny-yolo-voc.cfg",
+                   "load": "D:/Project/HawkEye/resource/darkflow/bin/tiny-yolo-voc.weights",
+                   "threshold": 0.5, "gpu": 0.5}
+        ####################################################################################
+        self.tfnet = TFNet(options)
+        self.colors = [tuple(255 * np.random.rand(3)) for _ in range(10)]
 
     def ButtonDConnectOnCreate(self):
         self.ui.tableWidget_Recording.doubleClicked.connect(self.on_DClickTable)
@@ -65,6 +75,7 @@ class UserMain(QtWidgets.QMainWindow):
 
         self.ui.pushButton_startRec.setEnabled(True)
         self.ui.pushButton_stop.setEnabled(True)
+        self.algo_init()
         self.capture = cv2.VideoCapture(0)
         self.capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
         self.capture.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
@@ -80,11 +91,12 @@ class UserMain(QtWidgets.QMainWindow):
         self.capture.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
         self.timer = QTimer()
         self.timer.timeout.connect(self.refresh_frame2)
-        self.timer.start(50)
+        self.timer.start(100)
 
     def stop(self):
         self.timer.stop()
         self.capture.release()
+        cv2.destroyAllWindows()
         self.ui.pushButton_startRec.setEnabled(False)
         self.ui.pushButton_stopRec.setEnabled(False)
         self.ui.pushButton_stop.setEnabled(False)
@@ -113,9 +125,32 @@ class UserMain(QtWidgets.QMainWindow):
     def refresh_frame(self):
 
         ret, self.image = self.capture.read()
-        # IMAGE PROCESSING CODE GOES HERE
+        self.image = cv2.flip(self.image, 1)
 
-        self.image = cv2.flip(self.image,1)
+
+        #IMAGE PROCESSING CODE GOES HERE
+
+
+        frame = self.image
+        results = self.tfnet.return_predict(frame)
+
+        if ret:
+            for color, result in zip(self.colors, results):
+                tl = (result['topleft']['x'], result['topleft']['y'])
+                br = (result['bottomright']['x'], result['bottomright']['y'])
+                label = result['label']
+                confidence = result['confidence']
+                text = '{}: {:.0f}%'.format(label, confidence * 100)
+                frame = cv2.rectangle(frame, tl, br, color, 5)
+                frame = cv2.putText(frame, text, tl, cv2.FONT_HERSHEY_COMPLEX, 1, (0, 0, 0), 2)
+
+            self.image=frame
+        else :
+            self.stop()
+
+        ###### Image Processing Ends
+
+
         if self.flag==1 :
             self.out.write(self.image)
         elif self.flag==0 :
@@ -126,10 +161,12 @@ class UserMain(QtWidgets.QMainWindow):
     def refresh_frame2(self):
 
         ret, self.image = self.capture.read()
-
+        if ret:
 
         # IMAGE PROCESSING CODE GOES HERE
-        self.displayImage(self.image)
+            self.displayImage(self.image)
+        else:
+            self.stop()
 
 
 
@@ -196,7 +233,7 @@ class UserMain(QtWidgets.QMainWindow):
 if __name__ == "__main__":
 
     app = QtWidgets.QApplication(sys.argv)
-    ##MainWindow = QtWidgets.QMainWindow()
+    MainWindow = QtWidgets.QMainWindow()
     ui_classobject =UserMain()  #creating the object of above class
     ui_classobject.showMaximized()   #displaying the window
     sys.exit(app.exec_())
