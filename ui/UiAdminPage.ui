@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>879</width>
-    <height>635</height>
+    <width>593</width>
+    <height>565</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -26,7 +26,7 @@
    <widget class="QLabel" name="label_logo">
     <property name="geometry">
      <rect>
-      <x>290</x>
+      <x>140</x>
       <y>10</y>
       <width>281</width>
       <height>71</height>
@@ -56,36 +56,7 @@ background-color: rgb(202, 202, 202);</string>
      <string/>
     </property>
    </widget>
-   <widget class="QLabel" name="label_propic_name">
-    <property name="geometry">
-     <rect>
-      <x>400</x>
-      <y>310</y>
-      <width>101</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">font: 75 12pt &quot;MS Shell Dlg 2&quot;;</string>
-    </property>
-    <property name="text">
-     <string>Profile Picture</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_changepic">
-    <property name="geometry">
-     <rect>
-      <x>400</x>
-      <y>340</y>
-      <width>101</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Change Picture</string>
-    </property>
-   </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>41</x>
@@ -200,12 +171,12 @@ background-color: rgb(202, 202, 202);</string>
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>40</x>
       <y>400</y>
-      <width>320</width>
+      <width>401</width>
       <height>25</height>
      </rect>
     </property>
@@ -238,7 +209,19 @@ background-color: rgb(202, 202, 202);</string>
        </property>
       </widget>
      </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_clear">
+       <property name="text">
+        <string>Clear</string>
+       </property>
+      </widget>
+     </item>
     </layout>
+    <zorder>pushButton_clear</zorder>
+    <zorder>pushButton_searchuser</zorder>
+    <zorder>pushButton_deleteuser</zorder>
+    <zorder>pushButton_adduser</zorder>
+    <zorder>pushButton_updateuser</zorder>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -246,7 +229,7 @@ background-color: rgb(202, 202, 202);</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>879</width>
+     <width>593</width>
      <height>21</height>
     </rect>
    </property>

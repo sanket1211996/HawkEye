@@ -3,6 +3,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets,QtSql
 from ui.UiLoginPage import Ui_MainWindow
 import MySQLdb
 from source.UserPage import UserMain
+from source.AdminPage import Main as AdminMain
 class LoginMain(QtWidgets.QMainWindow):
 
     def __init__(self):
@@ -24,7 +25,7 @@ class LoginMain(QtWidgets.QMainWindow):
 
         # Connecting the button to action
     def ButtonConnect(self):
-        self.ui.pushButton_Login.clicked.connect(self.authOfficer)
+        self.ui.pushButton_Login.clicked.connect(self.onClickLoginIn)
 
         # The function is called when the button clicked
     def onClickLoginIn(self):
@@ -46,8 +47,27 @@ class LoginMain(QtWidgets.QMainWindow):
         self.db_Cursor = self.db_Object.cursor()
 
     def authAdmin(self):
-        pass
+        self.DBconnection()   #Check Exception need
 
+        self.username = self.ui.lineEdit_UserName.text()
+        self.password = self.ui.lineEdit_Password.text()
+
+
+        userListQuery ="SELECT user_name,user_password FROM admin"
+
+        self.db_Cursor.execute(userListQuery)
+        results = self.db_Cursor.fetchall()
+        if not results:
+            msg =QtWidgets.QMessageBox()
+            msg.about(self, "Error","Invalid Credentials")
+
+        for row in results:
+            username_fetched=row[0]
+            password_fetched=row[1]
+
+            if(username_fetched==self.username and password_fetched==self.password):
+                self.DBDisconnect()
+                self.OpenAdminPage()
 
 
     def DBDisconnect(self):
@@ -61,7 +81,7 @@ class LoginMain(QtWidgets.QMainWindow):
         self.password = self.ui.lineEdit_Password.text()
 
 
-        userListQuery ="SELECT username,user_password FROM user"
+        userListQuery ="SELECT user_name,user_password FROM user"
 
         self.db_Cursor.execute(userListQuery)
         results = self.db_Cursor.fetchall()
@@ -72,8 +92,7 @@ class LoginMain(QtWidgets.QMainWindow):
         for row in results:
             username_fetched=row[0]
             password_fetched=row[1]
-            print (username_fetched)
-            print (password_fetched)
+
             if(username_fetched==self.username and password_fetched==self.password):
                 self.DBDisconnect()
                 self.OpenUserPage()
@@ -82,10 +101,16 @@ class LoginMain(QtWidgets.QMainWindow):
 
 
         #Opening another window code
+    def OpenAdminPage(self):
+        self.close()
+        self.objectAdminMain =AdminMain()
+        self.objectAdminMain.show()
+
     def OpenUserPage(self):
         self.close()
-        self.objectUserMain =UserMain()
+        self.objectUserMain = UserMain()
         self.objectUserMain.showMaximized()
+
 
 
 

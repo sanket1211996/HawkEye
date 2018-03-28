@@ -1,0 +1,6 @@
+https://pythonspot.com/pyqt5-table/
+
+
+https://www.learnopencv.com/read-write-and-display-a-video-using-opencv-cpp-python/
+
+from resource.qrc

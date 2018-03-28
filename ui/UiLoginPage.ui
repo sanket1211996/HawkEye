@@ -32,21 +32,21 @@
    <bool>false</bool>
   </property>
   <property name="styleSheet">
-   <string notr="true">QWidget{
-background-image: url(:/images/images/LoginPageBackground.jpg);
-}
-
-QLabel{
-	color: rgb(255, 0, 0);
-	font: 75 10pt &quot;Arial&quot;;
-}
-
-QLineEdit{
-	color: rgb(255, 255, 255);
-}
+   <string notr="true">
 </string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true">QWidget#centralwidget{
+
+	background-image: url(:/LoginPage/images/LoginPageBackground.jpg);
+}
+
+QLabel{
+
+	color: rgb(255, 255, 255);
+}</string>
+   </property>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
@@ -60,7 +60,7 @@ QLineEdit{
      <bool>false</bool>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-image: url(:/images/images/hawkeye_logo.png);</string>
+     <string notr="true">background-image: url(:/LoginPage/images/hawkeye_logo.png);</string>
     </property>
     <property name="text">
      <string/>
@@ -93,7 +93,7 @@ QLineEdit{
      <item row="1" column="0">
       <widget class="QLabel" name="labelPassword">
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>  Password </string>
@@ -139,7 +139,7 @@ QLineEdit{
         </sizepolicy>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-image: url(:/images/images/LoginButtonLogo.jpg);
+        <string notr="true">background-image: url(:/LoginPage/images/LoginButtonLogo.jpg);
 </string>
        </property>
        <property name="text">

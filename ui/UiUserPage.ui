@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1377</width>
+    <width>1372</width>
     <height>730</height>
    </rect>
   </property>
@@ -19,7 +19,9 @@
   <widget class="QWidget" name="centralwidget">
    <property name="styleSheet">
     <string notr="true">QWidget#centralwidget{
-	background-image: url(:/LoginPage/images/bg2.jpg);
+	background-image: url(:/UserPage/images/greyMetal.jpg);
+	
+
 }
 QTableWidget#tableWidget_Recording{
 	background-color: rgb(170, 170, 255);
@@ -42,44 +44,11 @@ QTableWidget#tableWidget_Recording{
      <number>0</number>
     </property>
     <widget class="QWidget" name="page_video_tab">
-     <widget class="QTableWidget" name="tableWidget_Recording">
-      <property name="geometry">
-       <rect>
-        <x>670</x>
-        <y>0</y>
-        <width>411</width>
-        <height>411</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
-      <column>
-       <property name="text">
-        <string>File Name</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Date</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Time</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Duration</string>
-       </property>
-      </column>
-     </widget>
      <widget class="QLabel" name="label_player">
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>0</y>
+        <y>10</y>
         <width>640</width>
         <height>480</height>
        </rect>
@@ -98,7 +67,7 @@ border-color: rgb(255, 0, 0);</string>
         <x>650</x>
         <y>-20</y>
         <width>20</width>
-        <height>501</height>
+        <height>511</height>
        </rect>
       </property>
       <property name="orientation">
@@ -108,131 +77,129 @@ border-color: rgb(255, 0, 0);</string>
      <widget class="Line" name="line">
       <property name="geometry">
        <rect>
-        <x>1180</x>
+        <x>1090</x>
         <y>0</y>
         <width>20</width>
-        <height>541</height>
+        <height>621</height>
        </rect>
       </property>
       <property name="orientation">
        <enum>Qt::Vertical</enum>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_FileDialog">
+     <widget class="QLabel" name="label_prediction">
       <property name="geometry">
        <rect>
-        <x>670</x>
-        <y>420</y>
-        <width>91</width>
-        <height>23</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>OutPut Folder</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label">
-      <property name="geometry">
-       <rect>
-        <x>770</x>
-        <y>420</y>
-        <width>311</width>
-        <height>21</height>
+        <x>1120</x>
+        <y>0</y>
+        <width>231</width>
+        <height>51</height>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(170, 170, 255);</string>
+       <string notr="true">font: 75 24pt &quot;MS Shell Dlg 2&quot;;
+border-color: rgb(0, 0, 0);
+color: rgb(180, 0, 0);
+background-color: rgb(170, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>Prediction</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_optext">
+      <property name="geometry">
+       <rect>
+        <x>1120</x>
+        <y>90</y>
+        <width>231</width>
+        <height>521</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(85, 170, 127);
+font: 75 24pt &quot;MS Shell Dlg 2&quot;;
+color: rgb(255, 0, 0);
+</string>
       </property>
       <property name="text">
        <string/>
       </property>
-     </widget>
-     <widget class="QSlider" name="horizontalSlider_video">
-      <property name="geometry">
-       <rect>
-        <x>100</x>
-        <y>490</y>
-        <width>551</width>
-        <height>22</height>
-       </rect>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
       </property>
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
+      <property name="margin">
+       <number>0</number>
       </property>
      </widget>
-     <widget class="QLabel" name="label_vtime">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>490</y>
-        <width>81</width>
+        <x>1120</x>
+        <y>60</y>
+        <width>231</width>
         <height>21</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(170, 170, 255);</string>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-     <widget class="QWidget" name="">
-      <property name="geometry">
-       <rect>
-        <x>130</x>
-        <y>540</y>
-        <width>401</width>
-        <height>25</height>
        </rect>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
-        <widget class="QPushButton" name="pushButton_prev">
+        <widget class="QLabel" name="label_type">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(170, 170, 255);</string>
+         </property>
          <property name="text">
-          <string>Prev</string>
+          <string>Type</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_pause">
-         <property name="text">
-          <string>Pause</string>
+        <widget class="QLabel" name="label_confidence">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(170, 170, 255);</string>
          </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="pushButton_play">
          <property name="text">
-          <string>Play</string>
+          <string>Confidence</string>
          </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="pushButton_vstop">
-         <property name="text">
-          <string>Stop</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="pushButton_next">
-         <property name="text">
-          <string>Next</string>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
       </layout>
      </widget>
+     <widget class="QLabel" name="label_msg">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>505</y>
+        <width>141</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(170, 255, 255);
+font: 75 12pt &quot;MS Shell Dlg 2&quot;;
+</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
      <widget class="QWidget" name="">
       <property name="geometry">
        <rect>
-        <x>170</x>
-        <y>510</y>
+        <x>160</x>
+        <y>501</y>
         <width>320</width>
         <height>25</height>
        </rect>
       </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
         <widget class="QPushButton" name="pushButton_start">
          <property name="text">
@@ -263,82 +230,244 @@ border-color: rgb(255, 0, 0);</string>
        </item>
       </layout>
      </widget>
+     <zorder>layoutWidget</zorder>
      <zorder>label_player</zorder>
      <zorder>layoutWidget</zorder>
      <zorder>line_2</zorder>
      <zorder>line</zorder>
-     <zorder>pushButton_FileDialog</zorder>
-     <zorder>label</zorder>
-     <zorder>horizontalSlider_video</zorder>
-     <zorder>label_vtime</zorder>
-     <zorder>tableWidget_Recording</zorder>
+     <zorder>label_prediction</zorder>
+     <zorder>label_optext</zorder>
+     <zorder>label_msg</zorder>
     </widget>
     <widget class="QWidget" name="page_2">
-     <widget class="QWebView" name="webView">
+     <widget class="QTableWidget" name="tableWidget_Recording">
       <property name="geometry">
        <rect>
-        <x>20</x>
-        <y>20</y>
-        <width>711</width>
-        <height>491</height>
+        <x>690</x>
+        <y>10</y>
+        <width>411</width>
+        <height>291</height>
        </rect>
       </property>
-      <property name="url">
-       <url>
-        <string>about:blank</string>
-       </url>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <column>
+       <property name="text">
+        <string>File Name</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Date/Time</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Size</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Duration</string>
+       </property>
+      </column>
+     </widget>
+     <widget class="QLabel" name="label_opdirtext">
+      <property name="geometry">
+       <rect>
+        <x>790</x>
+        <y>320</y>
+        <width>311</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(170, 170, 255);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_FileDialog">
+      <property name="geometry">
+       <rect>
+        <x>690</x>
+        <y>320</y>
+        <width>91</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>OutPut Folder</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_player_2">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>10</y>
+        <width>640</width>
+        <height>480</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(0, 0, 0);
+border-color: rgb(255, 0, 0);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_vstop">
+      <property name="geometry">
+       <rect>
+        <x>331</x>
+        <y>540</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Stop</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_play">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>540</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Play</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="comboBox">
+      <property name="geometry">
+       <rect>
+        <x>790</x>
+        <y>370</y>
+        <width>131</width>
+        <height>21</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_date">
+      <property name="geometry">
+       <rect>
+        <x>690</x>
+        <y>370</y>
+        <width>91</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 75 12pt &quot;MS Shell Dlg 2&quot;;</string>
+      </property>
+      <property name="text">
+       <string>Date Select</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_show">
+      <property name="geometry">
+       <rect>
+        <x>940</x>
+        <y>370</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Show</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_today">
+      <property name="geometry">
+       <rect>
+        <x>1030</x>
+        <y>370</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Today</string>
+      </property>
+     </widget>
+     <widget class="QSlider" name="horizontalSlider">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>510</y>
+        <width>641</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
       </property>
      </widget>
     </widget>
    </widget>
-   <widget class="QWidget" name="layoutWidget">
+   <widget class="QLabel" name="label_logo">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>181</width>
+      <x>500</x>
+      <y>9</y>
+      <width>280</width>
       <height>61</height>
      </rect>
     </property>
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QPushButton" name="pushButton_page1">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-image: url(:/LoginPage/images/video-icon.jpg);
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(208, 208, 208);
 
+background-image: url(:/UserPage/images/hawkeye_logo.png);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_page1">
+    <property name="geometry">
+     <rect>
+      <x>11</x>
+      <y>11</y>
+      <width>81</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-image: url(:/UserPage/images/video-icon.jpg);
 </string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="flat">
-        <bool>false</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_page2">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-image: url(:/UserPage/images/quadcopterlogo.png);</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-    </layout>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="flat">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_page2">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>10</y>
+      <width>91</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Player</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -346,22 +475,14 @@ border-color: rgb(255, 0, 0);</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1377</width>
+     <width>1372</width>
      <height>21</height>
     </rect>
    </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>QWebView</class>
-   <extends>QWidget</extends>
-   <header>QtWebKitWidgets/QWebView</header>
-  </customwidget>
- </customwidgets>
  <resources>
-  <include location="../resource/qrc/LoginPage.qrc"/>
   <include location="../resource/qrc/UserPage.qrc"/>
  </resources>
  <connections/>

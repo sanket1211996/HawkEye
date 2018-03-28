@@ -21,7 +21,20 @@ class Main(QtWidgets.QMainWindow):
         self.ui.pushButton_deleteuser.clicked.connect(self.DeleteUser)
         self.ui.pushButton_updateuser.clicked.connect(self.UpdateUser)
         self.ui.pushButton_searchuser.clicked.connect(self.SearchUser)
-        self.ui.pushButton_changepic.clicked.connect(self.ChangePic)
+        self.ui.pushButton_clear.clicked.connect(self.ClearData)
+        #self.ui.pushButton_changepic.clicked.connect(self.ChangePic)
+
+    def ClearData(self):
+        self.ui.lineEdit_userid.clear()
+        self.ui.lineEdit_firstname.clear()
+        self.ui.lineEdit_lastname.clear()
+        self.ui.lineEdit_username.clear()
+        self.ui.lineEdit_emailid.clear()
+        self.ui.lineEdit_mobileno.clear()
+        imagepath="D:\\Project\\HawkEye\\resource\\images\\playerbackground.png"
+        self.ui.label_propic_img.setPixmap(QtGui.QPixmap(imagepath))
+        self.EditEnableTrue()
+
 
 
     def getFileName(self):
@@ -58,10 +71,10 @@ class Main(QtWidgets.QMainWindow):
         last_name = self.ui.lineEdit_lastname.text()
         email_id = self.ui.lineEdit_emailid.text()
         mobile_no = int(self.ui.lineEdit_mobileno.text())
-        filename =self.getFileName()
-        print(filename)
+        filename ="pic.jpg" #self.getFileName()
+        #print(filename)
         user_password =self.GenPasswd()
-        print(user_password)
+        #print(user_password)
 
 
         addUserQuery = "insert into user (first_name,last_name,user_name,user_password,email_id,mobile_no,profile_pic) " \
@@ -125,6 +138,14 @@ class Main(QtWidgets.QMainWindow):
         self.ui.lineEdit_username.setReadOnly(True)
         self.ui.lineEdit_emailid.setReadOnly(True)
         self.ui.lineEdit_mobileno.setReadOnly(True)
+
+    def EditEnableTrue(self):
+        self.ui.lineEdit_userid.setReadOnly(False)
+        self.ui.lineEdit_firstname.setReadOnly(False)
+        self.ui.lineEdit_lastname.setReadOnly(False)
+        self.ui.lineEdit_username.setReadOnly(False)
+        self.ui.lineEdit_emailid.setReadOnly(False)
+        self.ui.lineEdit_mobileno.setReadOnly(False)
 
     def ChangePic(self):
         pass

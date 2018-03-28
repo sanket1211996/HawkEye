@@ -16,25 +16,23 @@ class Ui_MainWindow(object):
         MainWindow.setMinimumSize(QtCore.QSize(514, 352))
         MainWindow.setMaximumSize(QtCore.QSize(514, 352))
         MainWindow.setAutoFillBackground(False)
-        MainWindow.setStyleSheet("QWidget{\n"
-"background-image: url(:/images/images/LoginPageBackground.jpg);\n"
+        MainWindow.setStyleSheet("\n"
+"")
+        self.centralwidget = QtWidgets.QWidget(MainWindow)
+        self.centralwidget.setStyleSheet("QWidget#centralwidget{\n"
+"\n"
+"    background-image: url(:/LoginPage/images/LoginPageBackground.jpg);\n"
 "}\n"
 "\n"
 "QLabel{\n"
-"    color: rgb(255, 0, 0);\n"
-"    font: 75 10pt \"Arial\";\n"
-"}\n"
 "\n"
-"QLineEdit{\n"
 "    color: rgb(255, 255, 255);\n"
-"}\n"
-"")
-        self.centralwidget = QtWidgets.QWidget(MainWindow)
+"}")
         self.centralwidget.setObjectName("centralwidget")
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(110, 20, 281, 71))
         self.label.setAutoFillBackground(False)
-        self.label.setStyleSheet("background-image: url(:/images/images/hawkeye_logo.png);")
+        self.label.setStyleSheet("background-image: url(:/LoginPage/images/hawkeye_logo.png);")
         self.label.setText("")
         self.label.setObjectName("label")
         self.layoutWidget = QtWidgets.QWidget(self.centralwidget)
@@ -51,7 +49,7 @@ class Ui_MainWindow(object):
         self.lineEdit_UserName.setObjectName("lineEdit_UserName")
         self.gridLayout.addWidget(self.lineEdit_UserName, 0, 1, 1, 1)
         self.labelPassword = QtWidgets.QLabel(self.layoutWidget)
-        self.labelPassword.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.labelPassword.setStyleSheet("")
         self.labelPassword.setObjectName("labelPassword")
         self.gridLayout.addWidget(self.labelPassword, 1, 0, 1, 1)
         self.lineEdit_Password = QtWidgets.QLineEdit(self.layoutWidget)
@@ -72,7 +70,7 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.pushButton_Login.sizePolicy().hasHeightForWidth())
         self.pushButton_Login.setSizePolicy(sizePolicy)
-        self.pushButton_Login.setStyleSheet("background-image: url(:/images/images/LoginButtonLogo.jpg);\n"
+        self.pushButton_Login.setStyleSheet("background-image: url(:/LoginPage/images/LoginButtonLogo.jpg);\n"
 "")
         self.pushButton_Login.setText("")
         self.pushButton_Login.setObjectName("pushButton_Login")

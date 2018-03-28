@@ -1,0 +1,21 @@
+CREATE DATABASE HAWKEYE;
+
+use hawkeye
+create table user (user_id INT UNIQUE NOT NULL PRIMARY KEY AUTO_INCREMENT,first_name varchar(200),last_name varchar(200),user_name varchar(200) UNIQUE NOT NULL,user_password varchar(200) NOT NULL,email_id varchar(200) NOT NULL,mobile_no varchar(200) NOT NULL,profile_pic varchar(200));
+insert into user (first_name,last_name,user_name,user_password,email_id,mobile_no,profile_pic) values ("sanket","darwante","san_de1","sanket123","sanketdarwante6@gmail.com",7030308778,"D:\Project\HawkEye\database\pic.jpg")
+
+
+select * from user;
+delete from user where user_id=4;
+
+
+ select user_id,first_name,last_name,user_name,email_id,mobile_no,profile_pic from user where user_id=5;
+
+drop table user;
+
+
+mysql> create table admin (user_id int ,user_name varchar(200) ,user_password varchar (200));
+s
+
+mysql> insert into admin values (100,"testadmin","test123");
+Query OK, 1 row affected (0.14 sec)

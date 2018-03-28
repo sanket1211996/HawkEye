@@ -8,10 +8,11 @@ class Main(QtWidgets.QMainWindow):
         QtWidgets.QMainWindow.__init__(self)
         self.ui =Ui_MainWindow()
         self.ui.setupUi(self)
-        self.ui.pushButton.clicked.connect(self.onClick)  #Connecting the button to action.
 
-    def onClick(self):  #The function is called when the button clicked
-        self.ui.textEdit.setText("Sanket_Darwante")
+       # self.ui.pushButton.clicked.connect(self.onClick)  #Connecting the button to action.
+
+   # def onClick(self):  #The function is called when the button clicked
+    #    self.ui.textEdit.setText("Sanket_Darwante")
 
 
 if __name__ == "__main__":

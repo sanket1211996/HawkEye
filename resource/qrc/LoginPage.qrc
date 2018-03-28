@@ -1,7 +1,7 @@
 <RCC>
-  <qresource prefix="UserPage">
+  <qresource prefix="LoginPage">
+    <file>../images/greyMetal.jpg</file>
     <file>../images/LoginButtonLogo.jpg</file>
-    <file>../images/quadcopterlogo.png</file>
     <file>../images/LoginPageBackground.jpg</file>
     <file>../images/hawkeye_logo.png</file>
   </qresource>
