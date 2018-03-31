@@ -18,6 +18,9 @@ from mutagen.mp4 import MP4
 from playsound import playsound
 import threading
 import time
+import socket
+from pynmea import nmea
+import json
 from source.ThreadSound import ThreadingExample
 
 class UserMain(QtWidgets.QMainWindow):
@@ -30,11 +33,10 @@ class UserMain(QtWidgets.QMainWindow):
         self.Vwidth=480
         self.flag=-1       #Flag for 1 -recording  -1 for no recodring and 0 for stop recording
         #s
-        self.engine = pyttsx3.init()
+        #self.engine = pyttsx3.init()
         self.DisplayDateList()
-
-
-
+        self.resultList=[]
+        self.frameCount=1
         # elf.ui.webView.load(QtCore.QUrl("D:/Project/HawkEye/html/map.html"))
         self.fourcc=None
         self.outDir="D:\\Project\\HawkEye\\video"
@@ -45,6 +47,12 @@ class UserMain(QtWidgets.QMainWindow):
         self.algo_init()
         self.ButtonConnectOnCreate()
         self.ButtonDConnectOnCreate()
+
+
+
+
+
+
 
     def run(self):
         while True:
@@ -60,7 +68,6 @@ class UserMain(QtWidgets.QMainWindow):
         options = {"model": "D:/Project/HawkEye/resource/darkflow/cfg/tiny-yolo-voc.cfg",
                    "load": "D:/Project/HawkEye/resource/darkflow/bin/tiny-yolo-voc.weights",
                    "threshold": 0.5, "gpu": 0.5}
-        ####################################################################################
         self.tfnet = TFNet(options)
         self.colors = [tuple(255 * np.random.rand(3)) for _ in range(10)]
 
@@ -97,25 +104,44 @@ class UserMain(QtWidgets.QMainWindow):
     def onClickBtnPage2(self):
         self.ui.stackedWidget.setCurrentIndex(1)
 
-#video player method
+#webcam  method
     def start(self):
         self.flag=-1
+
+        if not(self.connectGps()):
+            self.ui.label_msg.setText("Streaming Stopped")
+            return
 
         self.ui.pushButton_startRec.setEnabled(True)
         self.ui.pushButton_stop.setEnabled(True)
 
-        self.capture = cv2.VideoCapture(0)   #0 for internal webcam 1 for external camera
-        self.capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
-        self.capture.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
-        self.timer =QTimer()
-        self.timer.timeout.connect(self.refresh_frame)
-        self.timer.start(5)
-        self.ui.label_msg.setText("Streaming...")
+        self.capture = cv2.VideoCapture(0) #0 for internal webcam 1 for external camera
+        if not  self.capture.isOpened():
+            msg = QtWidgets.QMessageBox()
+            msg.about(self, "Error", "Video Device Not Connected")
+            self.capture.release()
+            cv2.destroyAllWindows()
+            self.ui.pushButton_startRec.setEnabled(False)
+            self.ui.pushButton_stopRec.setEnabled(False)
+            self.ui.pushButton_stop.setEnabled(False)
+            self.ui.label_player.setPixmap(QPixmap("D:\\Project\\HawkEye\\resource\\images\\playerbackground.png"))
+            self.ui.label_msg.setText("Streaming Stopped")
+            return
+        else:
+            self.capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+            self.capture.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+            self.timer =QTimer()
+            self.timer.timeout.connect(self.refresh_frame)
+            self.timer.start(5)
+            self.ui.label_msg.setText("Streaming...")
 
     def stop(self):
         self.timer.stop()
         self.capture.release()
         cv2.destroyAllWindows()
+        self.disonnectGps()
+        if(self.flag==1):
+            self.jsonDataWrite()
         self.ui.pushButton_startRec.setEnabled(False)
         self.ui.pushButton_stopRec.setEnabled(False)
         self.ui.pushButton_stop.setEnabled(False)
@@ -125,20 +151,24 @@ class UserMain(QtWidgets.QMainWindow):
 
     def startRecord(self):
 
-        self.flag=1
+        self.flag=1 # flag to start and stop recording
         # Initilizing for recording
+        self.resultList=[] #To append the output result
+        self.frameCount=1
         varDate = datetime.datetime.now()
         datetoday = str(varDate.day) + "." + str(varDate.month) + "." + str(varDate.year)
         self.fourcc = cv2.VideoWriter_fourcc(*'XVID')  # Codec
-        fileName=self.getOutFileName()
-        OutFilePath = os.path.join(self.outDir,fileName)
+        self.fileName=self.getOutFileName()  #FileName without extension for creating videofile and json file
+        vfileName=self.fileName+".avi"
+        OutFilePath = os.path.join(self.outDir,vfileName)
         self.out = cv2.VideoWriter(OutFilePath, self.fourcc, 5.0, (int(self.Vheight), int(self.Vwidth)))
         self.DBconnection()
-        userListQuery = "INSERT INTO videoDatabase VALUES (\""+fileName+"\",\""+datetoday+"\")"
+        userListQuery = "INSERT INTO videoDatabase VALUES (\""+vfileName+"\",\""+datetoday+"\")"
         self.db_Cursor.execute(userListQuery)
         self.db_Object.commit()
         self.DBDisconnect()
         self.DisplayDateList()
+
         self.ui.pushButton_startRec.setEnabled(False)
         self.ui.pushButton_stopRec.setEnabled(True)
         self.ui.label_msg.setText("Recording Started")
@@ -147,22 +177,43 @@ class UserMain(QtWidgets.QMainWindow):
 
     def stopRecord(self):
         self.flag=0
+        self.jsonDataWrite()
+        #self.out.release()#Recording streaming closed
+        print("Video File Saved")
         self.ui.pushButton_stopRec.setEnabled(False)
         self.ui.pushButton_startRec.setEnabled(True)
         self.ui.label_msg.setText("Recording Stopped")
 
 
-
+    def jsonDataWrite(self):
+        # Write recording result to file
+        jsonFileName = self.fileName + ".json"
+        OutFilePath = os.path.join(self.outDir, jsonFileName)
+        with open(OutFilePath, 'w') as outputFile:
+            outputFile.write(json.dumps(self.resultList, indent=2))
+            outputFile.close()
+        print("Data Written to json ")
 
     def refresh_frame(self):
-
-        outputtext=""
+        outputtext="" #To store display result string
+        self.gpgga = nmea.GPGGA()
+        latitude = "-1000" #invalid data
+        lat_dir = ""
+        longitude = "-1000" #invalid data
+        long_dir = ""
+        countLabel = 1  # To Count number of Object Detected
+        mdataResult = {}  # To store multi detected object information i.e multiple dataresult
+        dataResult = {}  # To store label and confidence
+        finalData = {}  #To Store gps and mdataresult
+        newFinalData = {}# To store final data and framenos
         ret, self.image = self.capture.read()
         self.image = cv2.flip(self.image, 1)
         #IMAGE PROCESSING CODE GOES HERE
         frame = self.image
         results = self.tfnet.return_predict(frame)
+        gpsdata = self.mySocket.recv(1024).decode() #Getting gps data
         if ret:
+
             for color, result in zip(self.colors, results):
                 tl = (result['topleft']['x'], result['topleft']['y'])
                 br = (result['bottomright']['x'], result['bottomright']['y'])
@@ -172,10 +223,38 @@ class UserMain(QtWidgets.QMainWindow):
                 frame = cv2.rectangle(frame, tl, br, color, 5)
                 frame = cv2.putText(frame, text, tl, cv2.FONT_HERSHEY_COMPLEX, 1, (0, 0, 0), 2)
                 outputtext+="\n"+text
-                #if(label=="person" and confidence>0.5):
-                    #example = ThreadingExample(1)
-            self.displayPrediction(outputtext)
-            self.image=frame
+                 # resultList Generation Code
+                if(self.flag==1):
+                    dataResult = {}
+                    dataResult["label"]=label
+                    dataResult["confidence"]='{:.0f}'.format(confidence*100)
+                    mdataResult[countLabel]=dataResult
+                    countLabel+=1
+            self.image = frame # To write processed frame to original frame
+            #To get GPS Data From Telemetry Stream
+            if (gpsdata[0:6] == '$GPGGA'):
+                self.gpgga.parse(gpsdata)
+                latitude = self.gpgga.latitude
+                #lat_dir = self.gpgga.lat_direction
+                longitude = self.gpgga.longitude
+                #long_dir = self.gpgga.lon_direction
+            else :
+                gpsdata = self.mySocket.recv(1024).decode()
+                self.gpgga.parse(gpsdata)
+                latitude = self.gpgga.latitude
+                # lat_dir = self.gpgga.lat_direction
+                longitude = self.gpgga.longitude
+                # long_dir = self.gpgga.lon_direction
+            #Write gps data to resultList
+            if(self.flag==1):
+                finalData["latitude"] = latitude
+                finalData["longitude"] = longitude
+                finalData["detection"] = mdataResult
+                newFinalData[self.frameCount] = finalData
+                if(mdataResult):
+                    self.resultList.append(newFinalData) #Appending Result to List
+            self.displayPrediction(self.frameCount, latitude, longitude, outputtext)  # To Display Result
+            self.frameCount += 1
         else :
             self.stop()
         ###### Image Processing Ends
@@ -185,8 +264,13 @@ class UserMain(QtWidgets.QMainWindow):
                 self.out.release()
         self.displayImage(self.image)
 
-    def displayPrediction(self,text):
-        self.ui.label_optext.setText(text)
+    def displayPrediction(self,frameCount,lats,longitude,outputtext):
+        #self.ui.listWidgetResults.clear()
+        gpsdata = str(lats) + "," + str(longitude)
+        outData = "Frame no." + str(frameCount) + "\n Gps:" + gpsdata + "\n" + outputtext
+
+
+        self.ui.listWidgetResults.addItem(outData)
         return
 
 
@@ -208,6 +292,29 @@ class UserMain(QtWidgets.QMainWindow):
         outImage = outImage.rgbSwapped()
         self.ui.label_player.setPixmap(QPixmap.fromImage(outImage))
         self.ui.label_player.setScaledContents(True)
+
+    def connectGps(self):
+        self.host = '127.0.0.1'
+        self.port = 14551
+        self.mySocket = socket.socket()
+        try:
+            self.mySocket.connect((self.host, self.port))
+            print("gps connected")
+            return True
+        except:
+            msg = QtWidgets.QMessageBox()
+            msg.about(self, "Error", "Gps Not Connected")
+            return False
+
+
+    def disonnectGps(self):
+        self.mySocket.close()
+        print("Gps Disconnected")
+
+
+
+
+
 ################################PAGE 2 ######################################
 
     def DBconnection(self):
@@ -238,7 +345,7 @@ class UserMain(QtWidgets.QMainWindow):
         # IMAGE PROCESSING CODE GOES HERE
             self.displayImage2(self.image)
         else:
-            self.stop()
+            self.vstop()
 
     def displayImage2(self, img):
         qFormat = QImage.Format_Indexed8
@@ -392,7 +499,7 @@ class UserMain(QtWidgets.QMainWindow):
     def getOutFileName(self):
         varDate = datetime.datetime.now()
         newFileName=str(varDate.day)+"."+str(varDate.month)+"."+str(varDate.year)+"."+\
-                    str(varDate.hour)+"."+str(varDate.minute)+"."+str(varDate.second)+".avi"
+                    str(varDate.hour)+"."+str(varDate.minute)+"."+str(varDate.second)
         return newFileName
 
 

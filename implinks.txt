@@ -4,3 +4,11 @@ https://pythonspot.com/pyqt5-table/
 https://www.learnopencv.com/read-write-and-display-a-video-using-opencv-cpp-python/
 
 from resource.qrc
+
+mavproxy.exe --master=tcp:127.0.0.1:5760 --out=udp:127.0.0.1:14551
+dronekit-sitl plane-3.3.0 --home=-35.363261,149.165230,584,353
+
+
+https://www.gps-coordinates.net/
+
+http://www.hiddenvision.co.uk/ez/?nmea_lat=3521.78997%2CS&nmea_lon=14909.95374%2CE

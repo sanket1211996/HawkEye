@@ -109,31 +109,6 @@ background-color: rgb(170, 255, 255);</string>
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QLabel" name="label_optext">
-      <property name="geometry">
-       <rect>
-        <x>1120</x>
-        <y>90</y>
-        <width>231</width>
-        <height>521</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(85, 170, 127);
-font: 75 24pt &quot;MS Shell Dlg 2&quot;;
-color: rgb(255, 0, 0);
-</string>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-      <property name="margin">
-       <number>0</number>
-      </property>
-     </widget>
      <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
@@ -190,6 +165,19 @@ font: 75 12pt &quot;MS Shell Dlg 2&quot;;
        <string/>
       </property>
      </widget>
+     <widget class="QListWidget" name="listWidgetResults">
+      <property name="geometry">
+       <rect>
+        <x>1120</x>
+        <y>90</y>
+        <width>231</width>
+        <height>381</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 75 14pt &quot;MS Shell Dlg 2&quot;;</string>
+      </property>
+     </widget>
      <widget class="QWidget" name="">
       <property name="geometry">
        <rect>
@@ -236,8 +224,8 @@ font: 75 12pt &quot;MS Shell Dlg 2&quot;;
      <zorder>line_2</zorder>
      <zorder>line</zorder>
      <zorder>label_prediction</zorder>
-     <zorder>label_optext</zorder>
      <zorder>label_msg</zorder>
+     <zorder>listWidgetResults</zorder>
     </widget>
     <widget class="QWidget" name="page_2">
      <widget class="QTableWidget" name="tableWidget_Recording">
