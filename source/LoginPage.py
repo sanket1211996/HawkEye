@@ -2,8 +2,9 @@ import sys
 from PyQt5 import QtCore, QtGui, QtWidgets,QtSql
 from ui.UiLoginPage import Ui_MainWindow
 import MySQLdb
-from source.UserPage import UserMain
-from source.AdminPage import Main as AdminMain
+
+
+
 class LoginMain(QtWidgets.QMainWindow):
 
     def __init__(self):
@@ -102,11 +103,14 @@ class LoginMain(QtWidgets.QMainWindow):
 
         #Opening another window code
     def OpenAdminPage(self):
+
+        from source.AdminPage import Main as AdminMain
         self.close()
         self.objectAdminMain =AdminMain()
         self.objectAdminMain.show()
 
     def OpenUserPage(self):
+        from source.UserPage import UserMain
         self.close()
         self.objectUserMain = UserMain()
         self.objectUserMain.showMaximized()

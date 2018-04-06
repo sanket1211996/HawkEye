@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>593</width>
-    <height>565</height>
+    <width>633</width>
+    <height>683</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
@@ -17,17 +23,30 @@
    <string notr="true"/>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
    <property name="styleSheet">
     <string notr="true">QWidget#centralwidget{
 	background-image: url(:/bgi/images/greyMetal.jpg);
 
-}</string>
+}
+
+QLabel{
+	color: rgb(255, 255, 255);
+font: 75 12pt &quot;MS Shell Dlg 2&quot;;
+}
+
+</string>
    </property>
    <widget class="QLabel" name="label_logo">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>10</y>
+      <x>210</x>
+      <y>20</y>
       <width>281</width>
       <height>71</height>
      </rect>
@@ -43,33 +62,234 @@ background-color: rgb(202, 202, 202);</string>
    <widget class="QLabel" name="label_propic_img">
     <property name="geometry">
      <rect>
-      <x>390</x>
-      <y>160</y>
+      <x>110</x>
+      <y>130</y>
       <width>120</width>
       <height>140</height>
      </rect>
     </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(184, 184, 184);</string>
+     <string notr="true">background-image: url(:/icon/images/profilePicture.png);</string>
     </property>
     <property name="text">
      <string/>
     </property>
    </widget>
+   <widget class="QGroupBox" name="groupBox_SearchBox">
+    <property name="geometry">
+     <rect>
+      <x>350</x>
+      <y>100</y>
+      <width>271</width>
+      <height>261</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 75 12pt &quot;MS Shell Dlg 2&quot;;
+color: rgb(170, 255, 255);</string>
+    </property>
+    <property name="title">
+     <string>Search Box</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <widget class="QWidget" name="layoutWidget">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>70</y>
+       <width>231</width>
+       <height>91</height>
+      </rect>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_3">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_SearchText">
+        <property name="text">
+         <string>Search Text</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="lineEdit_SearchText"/>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_SearchBy">
+        <property name="styleSheet">
+         <string notr="true">font: 75 12pt &quot;MS Shell Dlg 2&quot;;
+</string>
+        </property>
+        <property name="text">
+         <string>Search By</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QComboBox" name="comboBox_SearchBy"/>
+      </item>
+     </layout>
+    </widget>
+   </widget>
+   <widget class="QPushButton" name="pushButton_searchuser">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>280</y>
+      <width>91</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Search User</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_Edit">
+    <property name="geometry">
+     <rect>
+      <x>250</x>
+      <y>260</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Edit</string>
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="groupBox">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>100</y>
+      <width>331</width>
+      <height>471</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 75 12pt &quot;MS Shell Dlg 2&quot;;
+color: rgb(170, 255, 255);</string>
+    </property>
+    <property name="title">
+     <string>User Information</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>11</x>
+       <y>430</y>
+       <width>71</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(255, 255, 255);</string>
+     </property>
+     <property name="text">
+      <string>User Type:</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="comboBox">
+     <property name="geometry">
+      <rect>
+       <x>100</x>
+       <y>430</y>
+       <width>211</width>
+       <height>25</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>41</x>
-      <y>150</y>
-      <width>301</width>
-      <height>241</height>
+      <x>21</x>
+      <y>570</y>
+      <width>311</width>
+      <height>71</height>
      </rect>
     </property>
-    <layout class="QGridLayout" name="gridLayout">
+    <layout class="QGridLayout" name="gridLayout_2">
+     <item row="0" column="0">
+      <widget class="QPushButton" name="pushButton_adduser">
+       <property name="text">
+        <string>Add User</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QPushButton" name="pushButton_updateuser">
+       <property name="text">
+        <string>Update User</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QPushButton" name="pushButton_deleteuser">
+       <property name="text">
+        <string>Delete User</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QPushButton" name="pushButton_ResetPassword">
+       <property name="text">
+        <string>Reset Password</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QPushButton" name="pushButton_clear">
+       <property name="text">
+        <string>Clear</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="QPushButton" name="pushButton_changePic">
+       <property name="text">
+        <string>Change Profile Picture</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QPushButton" name="pushButton_Logout">
+    <property name="geometry">
+     <rect>
+      <x>520</x>
+      <y>42</y>
+      <width>81</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Logout</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>22</x>
+      <y>300</y>
+      <width>301</width>
+      <height>221</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout_4">
      <item row="0" column="0">
       <widget class="QLabel" name="label_userid">
        <property name="styleSheet">
-        <string notr="true">font: 75 12pt &quot;MS Shell Dlg 2&quot;;</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>Use Id:</string>
@@ -77,16 +297,19 @@ background-color: rgb(202, 202, 202);</string>
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QLineEdit" name="lineEdit_userid">
+      <widget class="QLineEdit" name="lineEdit_UserIdText">
        <property name="styleSheet">
         <string notr="true">font: 75 12pt &quot;MS Shell Dlg 2&quot;;</string>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
      <item row="1" column="0">
       <widget class="QLabel" name="label_firstname">
        <property name="styleSheet">
-        <string notr="true">font: 75 12pt &quot;MS Shell Dlg 2&quot;;</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>First Name:</string>
@@ -171,65 +394,22 @@ background-color: rgb(202, 202, 202);</string>
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>400</y>
-      <width>401</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QPushButton" name="pushButton_updateuser">
-       <property name="text">
-        <string>Update User</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_adduser">
-       <property name="text">
-        <string>Add User</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_deleteuser">
-       <property name="text">
-        <string>Delete User</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_searchuser">
-       <property name="text">
-        <string>Search User</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_clear">
-       <property name="text">
-        <string>Clear</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-    <zorder>pushButton_clear</zorder>
-    <zorder>pushButton_searchuser</zorder>
-    <zorder>pushButton_deleteuser</zorder>
-    <zorder>pushButton_adduser</zorder>
-    <zorder>pushButton_updateuser</zorder>
-   </widget>
+   <zorder>groupBox</zorder>
+   <zorder>groupBox_SearchBox</zorder>
+   <zorder>pushButton_searchuser</zorder>
+   <zorder>label_logo</zorder>
+   <zorder>label_propic_img</zorder>
+   <zorder>layoutWidget</zorder>
+   <zorder>layoutWidget</zorder>
+   <zorder>pushButton_Edit</zorder>
+   <zorder>pushButton_Logout</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>593</width>
+     <width>633</width>
      <height>21</height>
     </rect>
    </property>
