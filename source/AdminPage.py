@@ -1,3 +1,4 @@
+
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 from ui.UiAdminPage import Ui_MainWindow
@@ -19,7 +20,8 @@ class Main(QtWidgets.QMainWindow):
         self.Editflag=True
         self.CurrentUserId=""
         self.CurrentProfilePic=""
-
+        self.ui.comboBox.addItem("Admin")
+        self.ui.comboBox.addItem("User")
         self.BtConnect()
         self.ComboBoxInit()
 
@@ -114,7 +116,7 @@ class Main(QtWidgets.QMainWindow):
             # Commit your changes in the database
             self.db_Object.commit()
             msg = QtWidgets.QMessageBox()
-            msg.about(self, "Error", "User Added SuccessFully")
+            msg.about(self, "Success", "User Added SuccessFully")
             self.ClearData()
 
         except:
@@ -177,7 +179,7 @@ class Main(QtWidgets.QMainWindow):
                 # Commit your changes in the database
                 self.db_Object.commit()
                 msg = QtWidgets.QMessageBox()
-                msg.about(self, "Error", "User Updated SuccessFully")
+                msg.about(self, "Success", "User Updated SuccessFully")
                 self.ClearData()
 
             except:
@@ -190,7 +192,7 @@ class Main(QtWidgets.QMainWindow):
 
         if not (self.SearchFlag):
             msg = QtWidgets.QMessageBox()
-            msg.about(self, "Error", "Please Search User ....")
+            msg.about(self, "Message", "Please Search User ....")
 
         if(self.Editflag):
             msg = QtWidgets.QMessageBox()

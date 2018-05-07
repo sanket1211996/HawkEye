@@ -292,13 +292,14 @@ class Ui_UserWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.pushButton_page1.sizePolicy().hasHeightForWidth())
         self.pushButton_page1.setSizePolicy(sizePolicy)
-        self.pushButton_page1.setStyleSheet("background-image: url(:/UserPage/images/video-icon.jpg);\n"
-"")
+        self.pushButton_page1.setStyleSheet("background-image: url(:/UserPage/images/drone.jpg);")
         self.pushButton_page1.setText("")
         self.pushButton_page1.setFlat(False)
         self.pushButton_page1.setObjectName("pushButton_page1")
         self.pushButton_page2 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_page2.setGeometry(QtCore.QRect(110, 10, 91, 61))
+        self.pushButton_page2.setStyleSheet("background-image: url(:/UserPage/images/blue-music-player-logo-icon-66118.png);")
+        self.pushButton_page2.setText("")
         self.pushButton_page2.setObjectName("pushButton_page2")
         self.pushButton_logout = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_logout.setGeometry(QtCore.QRect(1210, 20, 111, 31))
@@ -321,7 +322,7 @@ class Ui_UserWindow(object):
     def retranslateUi(self, UserWindow):
         _translate = QtCore.QCoreApplication.translate
         UserWindow.setWindowTitle(_translate("UserWindow", "HawkEye"))
-        self.label_prediction.setText(_translate("UserWindow", "Prediction"))
+        self.label_prediction.setText(_translate("UserWindow", "Detection"))
         self.label.setText(_translate("UserWindow", "Gps Ip Adrress:"))
         self.label_3.setText(_translate("UserWindow", "Gps Port No:"))
         self.pushButton_GpsCon.setText(_translate("UserWindow", "Connect"))
@@ -351,9 +352,8 @@ class Ui_UserWindow(object):
         self.label_date.setText(_translate("UserWindow", "Date Select"))
         self.pushButton_show.setText(_translate("UserWindow", "Show"))
         self.pushButton_today.setText(_translate("UserWindow", "Today"))
-        self.label_prediction_2.setText(_translate("UserWindow", "Prediction"))
+        self.label_prediction_2.setText(_translate("UserWindow", "Detection"))
         self.pushButton_pause.setText(_translate("UserWindow", "Pause"))
-        self.pushButton_page2.setText(_translate("UserWindow", "Player"))
         self.pushButton_logout.setText(_translate("UserWindow", "Logout"))
 
 from resource.qrc import UserPage_rc

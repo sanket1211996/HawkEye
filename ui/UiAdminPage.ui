@@ -132,7 +132,11 @@ color: rgb(170, 255, 255);</string>
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QComboBox" name="comboBox_SearchBy"/>
+       <widget class="QComboBox" name="comboBox_SearchBy">
+        <property name="styleSheet">
+         <string notr="true">color: rgb(0, 0, 0);</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -207,6 +211,10 @@ color: rgb(170, 255, 255);</string>
        <height>25</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(0, 0, 0);
+</string>
+     </property>
     </widget>
    </widget>
    <widget class="QWidget" name="layoutWidget">
@@ -276,7 +284,7 @@ color: rgb(170, 255, 255);</string>
      <string>Logout</string>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>22</x>

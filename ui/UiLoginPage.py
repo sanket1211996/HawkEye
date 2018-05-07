@@ -51,7 +51,7 @@ class Ui_MainWindow(object):
         self.labelPassword = QtWidgets.QLabel(self.layoutWidget)
         self.labelPassword.setStyleSheet("")
         self.labelPassword.setObjectName("labelPassword")
-        self.gridLayout.addWidget(self.labelPassword, 1, 0, 1, 1)
+        self .gridLayout.addWidget(self.labelPassword, 1, 0, 1, 1)
         self.lineEdit_Password = QtWidgets.QLineEdit(self.layoutWidget)
         self.lineEdit_Password.setAutoFillBackground(False)
         self.lineEdit_Password.setObjectName("lineEdit_Password")

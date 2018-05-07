@@ -659,8 +659,7 @@ background-image: url(:/UserPage/images/hawkeye_logo.png);</string>
      </sizepolicy>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-image: url(:/UserPage/images/video-icon.jpg);
-</string>
+     <string notr="true">background-image: url(:/UserPage/images/drone.jpg);</string>
     </property>
     <property name="text">
      <string/>
@@ -678,8 +677,11 @@ background-image: url(:/UserPage/images/hawkeye_logo.png);</string>
       <height>61</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">background-image: url(:/UserPage/images/blue-music-player-logo-icon-66118.png);</string>
+    </property>
     <property name="text">
-     <string>Player</string>
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_logout">

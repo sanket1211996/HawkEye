@@ -3,11 +3,11 @@ from  firebase import firebase
 
 # your variables are already assigned before this
 #
-# firebase = firebase.FirebaseApplication('https://my-travel-junction.firebaseio.com/Location', None)
-#
-#
-# firebase.put('/LocationUpdate',"latitude",54)
-# firebase.put('/LocationUpdate',"longitude",64)
+firebase = firebase.FirebaseApplication('https://myapplication-faa59.firebaseio.com/Location', None)
+
+
+firebase.put('/LocationUpdate',"latitude",-35.363261)
+firebase.put('/LocationUpdate',"longitude",14.16522983333334)
 #
 # latitude= firebase.get('/LocationUpdate','latitude')
 # print (latitude)

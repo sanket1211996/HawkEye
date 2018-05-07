@@ -22,7 +22,7 @@ import socket
 from pynmea import nmea
 import json
 from source.ThreadSound import ThreadingExample
-
+from firebase import firebase
 
 class UserMain(QtWidgets.QMainWindow):
     def __init__(self):
@@ -47,6 +47,7 @@ class UserMain(QtWidgets.QMainWindow):
         self.outDir="D:\\Project\\HawkEye\\video"
         self.currentLatitude=""
         self.currentLongitude=""
+        self.gpsData =""
         self.locationFlag=False
         self.defaultGpsIp='127.0.0.1'
         self.defaultGpsPort='14551'
@@ -66,16 +67,12 @@ class UserMain(QtWidgets.QMainWindow):
         self.timer = QTimer()
         self.ButtonConnectOnCreate()
         self.ButtonDConnectOnCreate()
+        self.ServerConnect()
 
 
-
-
-
-
-
-
-
-
+    def ServerConnect(self):
+        self.firebase = firebase.FirebaseApplication('https://myapplication-faa59.firebaseio.com', None)
+        print("Server Connected")
 
 
 
@@ -123,34 +120,11 @@ class UserMain(QtWidgets.QMainWindow):
         self.ui.pushButton_logout.clicked.connect(self.OpenLoginPage)
         self.ui.pushButton_SendAlert.clicked.connect(self.SendAlert)
 
-    def SendAlert(self):
-        if(self.locationFlag):
-            from firebase import firebase
-            firebase = firebase.FirebaseApplication('https://my-travel-junction.firebaseio.com/Location', None)
-            firebase.put('/LocationUpdate', "latitude", self.currentLatitude)
-            firebase.put('/LocationUpdate', "longitude", self.currentLongitude)
-            self.ui.label_5.setText("Location Sent:" + self.currentLatitude+ "," + self.currentLongitude)
-            msg = QtWidgets.QMessageBox()
-            msg.about(self, "Message", "Current Location Sent")
-
-        else:
-            msg = QtWidgets.QMessageBox()
-            msg.about(self, "Message", "Currrent Location Not Available")
 
 
 
 
-    def ChangeOutputFolder(self):
-        self.outDir=self.getOutputDir()
-        if self.outDir :
-            self.ui.label_outputDir.setText(self.outDir)
-            self.ui.label_opdirtext.setText(self.outDir)
-            msg = QtWidgets.QMessageBox()
-            msg.about(self, "Message", "Output folder changed")
-        else:
-            self.ui.label_outputDir.setText(self.defaultOpFolder)
-            self.ui.label_opdirtext.setText(self.defaultOpFolder)
-            self.outDir=self.defaultOpFolder
+
 
 
     def setEnabledButtonOnCreate(self):
@@ -171,6 +145,30 @@ class UserMain(QtWidgets.QMainWindow):
         self.ui.stackedWidget.setCurrentIndex(1)
 
 #webcam  method
+    def ChangeOutputFolder(self):
+        self.outDir=self.getOutputDir()
+        if self.outDir :
+            self.ui.label_outputDir.setText(self.outDir)
+            self.ui.label_opdirtext.setText(self.outDir)
+            msg = QtWidgets.QMessageBox()
+            msg.about(self, "Message", "Output folder changed")
+        else:
+            self.ui.label_outputDir.setText(self.defaultOpFolder)
+            self.ui.label_opdirtext.setText(self.defaultOpFolder)
+            self.outDir=self.defaultOpFolder
+
+    def SendAlert(self):
+        if(self.locationFlag):
+            self.firebase.put('/LocationUpdate', "latitude", self.currentLatitude)
+            self.firebase.put('/LocationUpdate', "longitude", self.currentLongitude)
+            self.ui.label_5.setText("Location Sent:" + self.currentLatitude+ "," + self.currentLongitude)
+            msg = QtWidgets.QMessageBox()
+            msg.about(self, "Message", "Current Location Sent")
+
+        else:
+            msg = QtWidgets.QMessageBox()
+            msg.about(self, "Message", "Currrent Location Not Available")
+
     def start(self):
         self.flag=-1
         self.StreamFlag=True
@@ -272,6 +270,10 @@ class UserMain(QtWidgets.QMainWindow):
         lat_dir = ""
         longitude = "-1000" #invalid data
         long_dir = ""
+        ddlongitude=""
+        ddlatitude=""
+        sddlatitude=""
+        sddlongitude=""
         countLabel = 1  # To Count number of Object Detected
         mdataResult = {}  # To store multi detected object information i.e multiple dataresult
         dataResult = {}  # To store label and confidence
@@ -282,7 +284,8 @@ class UserMain(QtWidgets.QMainWindow):
         #IMAGE PROCESSING CODE GOES HERE
         frame = self.image
         results = self.tfnet.return_predict(frame)
-        gpsdata = self.mySocket.recv(1024).decode() #Getting gps data
+
+
         if ret:
 
             for color, result in zip(self.colors, results):
@@ -303,31 +306,47 @@ class UserMain(QtWidgets.QMainWindow):
                     countLabel+=1
             self.image = frame # To write processed frame to original frame
             #To get GPS Data From Telemetry Stream
-            if (gpsdata[0:6] == '$GPGGA'):
-                self.gpgga.parse(gpsdata)
-                latitude = self.gpgga.latitude
-                #lat_dir = self.gpgga.lat_direction
-                longitude = self.gpgga.longitude
-                #long_dir = self.gpgga.lon_direction
-            else :
-                gpsdata = self.mySocket.recv(1024).decode()
-                self.gpgga.parse(gpsdata)
-                latitude = self.gpgga.latitude
-                longitude = self.gpgga.longitude
+#            if (gpsdata[0:6] == '$GPGGA'):
+            self.getGpsData()
+            self.gpgga.parse(self.gpsdata)
+            latitude = self.gpgga.latitude
+            lat_dir = self.gpgga.lat_direction
+            longitude = self.gpgga.longitude
+            long_dir = self.gpgga.lon_direction
+        # else :
+            #     gpsdata = self.mySocket.recv(1024).decode()
+            #     self.gpgga.parse(gpsdata)
+            #     latitude = self.gpgga.latitude
+            #     lat_dir = self.gpgga.lat_direction
+            #     longitude = self.gpgga.longitude
+            #     long_dir = self.gpgga.lon_direction
 
-            #Write gps data to resultList
+
+
+            ##Converting Latitude Longitude data to correct values
+            ddlatitude = float(latitude[0:2]) + ((float(latitude[2:])) / 60.0)
+            if (lat_dir == 'S' or lat_dir == 'W'):
+                 ddlatitude = -ddlatitude
+
+            ddlongitude = float(longitude[0:3]) + ((float(longitude[3:])) / 60.0)
+            if (long_dir == 'S' or long_dir == 'W'):
+                 ddlongitude = -ddlongitude
+
+            sddlatitude =str(ddlatitude)
+            sddlongitude=str(ddlongitude)
+             #Write gps data to resultList
             if(self.flag==1):
-                finalData["latitude"] = latitude
-                finalData["longitude"] = longitude
+                finalData["latitude"] = sddlatitude
+                finalData["longitude"] = sddlongitude
                 finalData["detection"] = mdataResult
                 newFinalData[self.frameCount] = finalData
                 if(mdataResult):
                     self.resultList.append(newFinalData) #Appending Result to List
 
-            self.currentLatitude=latitude
-            self.currentLongitude=longitude
+            self.currentLatitude=sddlatitude
+            self.currentLongitude=sddlongitude
             self.locationFlag=True
-            self.displayPrediction(self.frameCount, latitude, longitude, outputtext)  # To Display Result
+            self.displayPrediction(self.frameCount, sddlatitude, sddlongitude, outputtext)  # To Display Result
             self.frameCount += 1
         else :
             self.stop()
@@ -338,12 +357,18 @@ class UserMain(QtWidgets.QMainWindow):
                 self.out.release()
         self.displayImage(self.image)
 
+    def getGpsData(self):
+        self.gpsdata = self.mySocket.recv(1024).decode()  # Getting gps data
+        if not (self.gpsdata[0:6] == '$GPGGA'):
+            self.getGpsData()
+        else :
+            return
+
+
     def displayPrediction(self,frameCount,lats,longitude,outputtext):
         #self.ui.listWidgetResults.clear()
         gpsdata = str(lats) + "," + str(longitude)
         outData = "Frame no." + str(frameCount) + "\n Gps:" + gpsdata + "\n" + outputtext
-
-
         self.ui.listWidgetResults.addItem(outData)
         return
 
@@ -351,7 +376,7 @@ class UserMain(QtWidgets.QMainWindow):
     def AlertMessage(self):
         self.engine.say("Human Detected")
         self.engine.runAndWait()
-#        playsound("D:\\Project\\HawkEye\\resource\\sound\\HumanDetected.mp3")
+#       playsound("D:\\Project\\HawkEye\\resource\\sound\\HumanDetected.mp3")
 
     def displayImage(self, img):
         qFormat = QImage.Format_Indexed8

@@ -61,9 +61,19 @@ class GpsData():
                 lon_str = lon_deg + u'\N{DEGREE SIGN}' + lon_mins + string.printable[68] + str(lon_secs) + \
                           string.printable[63]
                 print("Longitude : " + str(lon_str))
+
+
+
+                ddlatitude=float(lats[0:2])+((float(lats[2:]))/60.0)
+                if (lat_dir == 'S' or lat_dir == 'W'):
+                    ddlatitude=-ddlatitude
+
+                ddlongitude = float(longitude[0:3])+((float(longitude[3:]))/60.0)
+                if (long_dir == 'S' or long_dir == 'W'):
+                    ddlongitude=-ddlongitude
+
+                print("ddlats"+str(ddlatitude) +",ddlong"+str(ddlongitude))
                 print("####################Data Ending##################")
-
-
 
 g=GpsData()
 g.connectServer()
